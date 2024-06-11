@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from 'react'
 
-const tabs = ['posts', 'comments','albums'];
-
 function Content() {
     // --For all useEffect types: Goi callback sau khi Component them element vao DOM(component mount)
-    // --Note to cleanup function truoc khi unmount
+    // --Note to clean up function truoc khi unmount
 
     // 1. useEffect(callback)
     // --Goi callback moi khi component re-render
@@ -13,62 +11,22 @@ function Content() {
     // 3. useEffect(ham callback, [dependencies])
     // -- Callback se duoc goi lai moi khi dependencies thay doi
 
-    const [selectedTab, setSelectedTab] = useState('posts');
-    const [posts, setPosts] = useState([]);
-    const [showGoToTop, setShowGoToTop] = useState(false);
-
-    console.log(selectedTab)
-    useEffect(() => {
-        fetch(`https://jsonplaceholder.typicode.com/${selectedTab}` )
-            .then(res => res.json())
-            .then(posts => {
-                setPosts(posts)
-        })
-    }, [selectedTab]);
+    const [width, setWidth] =  useState(window.innerWidth);
 
     useEffect(() => {
-        const handleScroll = () => {
-            setShowGoToTop(scrollY >= 200);
-            console.log(scrollY);
-        }
-        window.addEventListener('scroll', handleScroll) //luu y pham vi cua window
+        const handleResize = () => {
+            setWidth(window.innerWidth);
+        };
 
-        // clean up function
+        window.addEventListener('resize', handleResize);//resize is a name of JS
         return () => {
-            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('resize', handleResize);
         }
     }, [])
 
-    console.log('Re-render')
     return (
         <div>
-            {tabs.map(tab => (
-                <button
-                    key={tab}
-                    style = {tab === selectedTab ? {
-                        background: "black",
-                        color:'#FFFFFF'
-                    } : {}}
-                    onClick={() => setSelectedTab(tab)}
-                >
-                    {tab}
-                </button>
-            ))}
-            {
-                posts.map(post => {
-                return <li key={post.id}>{post.title || post.name}</li>
-            })}
-            {showGoToTop && (
-                <button
-                    style={{
-                        position: 'fixed',
-                        right: 20,
-                        bottom: 20
-                    }}
-                >
-                    Go to top
-                </button>)
-            }
+            <h1>{width}</h1>
         </div>
     )
 }
