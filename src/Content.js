@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 
 function Content() {
     // --For all useEffect types: Goi callback sau khi Component them element vao DOM(component mount)
+    // -- Ham clean up se duoc goi truoc khi callback??? (tru lan mount dau tien)
     // --Note to clean up function truoc khi unmount
 
     // 1. useEffect(callback)
@@ -23,6 +24,8 @@ function Content() {
             window.removeEventListener('resize', handleResize);
         }
     }, [])
+
+
 
     return (
         <div>

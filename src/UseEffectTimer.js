@@ -1,38 +1,45 @@
 import React, {useEffect, useState} from 'react'
 
-const totalCount = 180;
+// Timers: setInterval, setTimeout, clearInterval, clearTimeout
+// Closure
+// 3. Clean up luon duoc goi truoc khi callback duoc goi(tru lan mount)
+// setInterval => bring a listener to window scope
 function UseEffectTimer() {
 
-    const [countDown, setCountDown] = useState(totalCount);
-    // useEffect with timer function
-    // Timers: setInterval, setTimeout, clearInterval, clearTimeout
-    // Closure
-    // 3. Clean up luon duoc goi truoc khi callback duoc goi(tru lan mount)
+    const [avatar, setAvatar] = useState('');
 
+    const handlePreviewData = (e) => {
+        const file = e.target.files[0];
+        file.preview = URL.createObjectURL(file);
+        setAvatar(file)
+        e.target.value = null; //to clear the name of the chosen file
+    }
 
-
+    useEffect(() => {
+        // goi ham clean up
+        return () => avatar && URL.revokeObjectURL(avatar.preview)
+    }, [avatar]);
 
     return (
-        <h1>{countDown}</h1>
+        <div>
+            <input
+                style={{display: 'block', marginBottom: 50}}
+                type="file"
+                // multiple
+                onChange={handlePreviewData}
+            />
+            {avatar &&
+                <img src={avatar.preview} alt='image' width='80%'/>
+            }
+        </div>
     )
 }
 
 export default UseEffectTimer
 
-// useEffect(() => {
-//     setTimeout(() => { //use the same 'thread'
-//         setCountDown(countDown - 1);
-//         console.log('Timeout is running');
-//     }, 1000);
-// },[countDown])
-
-// useEffect(() => {
-//     const timerId = setInterval(() => {
-//         setCountDown(prev => prev - 1);
-//         console.log('Interval is running');
-//     }, 1000);
-//
-//     return () => clearInterval(timerId);
-// },[])
-
-// setInterval => bring a listener to window scope
+//useEffect flow
+// cap nhat lai state
+// cap nhat DOM (mutated - update 1 field... trong object)
+// Re-render UI
+// goi clean up neu dependencies thay doi
+// useEffect goi callback
