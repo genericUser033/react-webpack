@@ -2,6 +2,7 @@ import './App.css'
 import './Content'
 import React, {useState} from 'react'
 import UseLayoutEffect from "./UseLayoutEffect";
+import UseRef from "./UseRef";
 
 function emitComment(id) {
     setInterval(() => {
@@ -25,7 +26,7 @@ function App() {
            <button onClick={() => setState(!state)}>Show</button>
 
            <div>
-               {state && <UseLayoutEffect/>}
+               {state && <UseRef/>}
            </div>
        </>
 
