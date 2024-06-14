@@ -1,8 +1,8 @@
 import './App.css'
 import './Content'
-import React, {useState} from 'react'
-import UseLayoutEffect from "./UseLayoutEffect";
-import UseRef from "./UseRef";
+import React, {useCallback, useState} from 'react'
+import ReactMemo from "./ReactMemo";
+import Sample from "./Sample";
 
 function emitComment(id) {
     setInterval(() => {
@@ -14,19 +14,27 @@ function emitComment(id) {
     }, 2000)
 }
 
-emitComment(1)
-emitComment(2)
-emitComment(3)
+// emitComment(1)
+// emitComment(2)
+// emitComment(3)
 
 function App() {
     const [state, setState] = useState(false);
+    const [count, setCount] = useState(0);
+
+    // dependencies thay doi => tra ve tham chieu moi
+    // dependencies khong thay doi => tra ve tham chieu cu
+    const handleIncrease = useCallback(() => {//useCallback tra ve tham chieu truoc do
+        setCount(count => count + 1);
+    }, [])
 
    return (
        <>
            <button onClick={() => setState(!state)}>Show</button>
 
-           <div>
-               {state && <UseRef/>}
+           <div style={{padding: '10px 32px'}}>
+               <Sample onIncrease={handleIncrease} />
+               <h1>{count}</h1>
            </div>
        </>
 
