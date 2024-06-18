@@ -3,6 +3,7 @@ import './Content'
 import React, {useCallback, useState} from 'react'
 import ReactMemo from "./ReactMemo";
 import Sample from "./Sample";
+import UseMemo from "./UseMemo";
 
 function emitComment(id) {
     setInterval(() => {
@@ -30,11 +31,8 @@ function App() {
 
    return (
        <>
-           <button onClick={() => setState(!state)}>Show</button>
-
            <div style={{padding: '10px 32px'}}>
-               <Sample onIncrease={handleIncrease} />
-               <h1>{count}</h1>
+               <UseMemo />
            </div>
        </>
 
