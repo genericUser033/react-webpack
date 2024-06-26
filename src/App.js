@@ -4,6 +4,8 @@ import React, {useCallback, useState} from 'react'
 import ReactMemo from "./ReactMemo";
 import Sample from "./Sample";
 import UseMemo from "./UseMemo";
+import UseReducer from "./useReducer";
+import UseReducer2 from "./UseReducer2";
 
 function emitComment(id) {
     setInterval(() => {
@@ -32,7 +34,7 @@ function App() {
    return (
        <>
            <div style={{padding: '10px 32px'}}>
-               <UseMemo />
+               <UseReducer2 />
            </div>
        </>
 
