@@ -1,44 +1,22 @@
 import './App.css'
 import './Content'
-import React, {useCallback, useState} from 'react'
-import ReactMemo from "./ReactMemo";
-import Sample from "./Sample";
-import UseMemo from "./UseMemo";
-import UseReducer from "./useReducer";
-import UseReducer2 from "./UseReducer2";
+import React, {useContext} from 'react'
+import {Content} from "./Content/Content";
+import {ThemeContext} from "./ThemeContext";
 
-function emitComment(id) {
-    setInterval(() => {
-        window.dispatchEvent(
-            new CustomEvent(`lesson-${id}`,{
-                detail: `Noi dung comment cua lesson ${id}`
-            })
-        )
-    }, 2000)
-}
+//     1. context
 
-// emitComment(1)
-// emitComment(2)
-// emitComment(3)
+//     2. provider
+//     3. consumer
 
 function App() {
-    const [state, setState] = useState(false);
-    const [count, setCount] = useState(0);
-
-    // dependencies thay doi => tra ve tham chieu moi
-    // dependencies khong thay doi => tra ve tham chieu cu
-    const handleIncrease = useCallback(() => {//useCallback tra ve tham chieu truoc do
-        setCount(count => count + 1);
-    }, [])
-
-   return (
-       <>
-           <div style={{padding: '10px 32px'}}>
-               <UseReducer2 />
-           </div>
-       </>
-
-   )
+    const context = useContext(ThemeContext);
+    return (
+        <div>
+            <button style={{margin: 20}} onClick={context.handleClick}>Toggle theme</button>
+            <Content/>
+        </div>
+    )
 };
 
 export default App;

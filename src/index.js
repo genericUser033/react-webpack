@@ -1,9 +1,12 @@
 import React from 'react' // nạp thư viện react
 import ReactDOM from 'react-dom'
-import App from "./App"; // nạp thư viện react-dom
+import App from "./App";
+import {ThemeProvider} from "./ThemeContext"; // nạp thư viện react-dom
 
 ReactDOM.render(
-    <App />,
+    <ThemeProvider>
+        <App />
+    </ThemeProvider>,
     document.getElementById('root')
 )
 
