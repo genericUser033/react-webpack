@@ -1,20 +1,28 @@
 import './App.css'
-import './Content'
-import React, {useContext} from 'react'
-import {Content} from "./Content/Content";
-import {ThemeContext} from "./ThemeContext";
-
-//     1. context
-
-//     2. provider
-//     3. consumer
+import React, {useEffect, useRef} from 'react'
+import Video from "./Video";
 
 function App() {
-    const context = useContext(ThemeContext);
+    const videoRef = useRef();
+
+    useEffect(() => {
+        //used so that ctr goi callback sau khi component them element vao DOM
+        console.log(videoRef.current)
+    });
+
+    const handlePlay = () => {
+        videoRef.current.play();
+    }
+
+    const handlePause = () => {
+        videoRef.current.pause();
+    }
+
     return (
         <div>
-            <button style={{margin: 20}} onClick={context.handleClick}>Toggle theme</button>
-            <Content/>
+            <Video ref={videoRef} />
+            <button onClick={handlePlay}>Play</button>
+            <button onClick={handlePause}>Pause</button>
         </div>
     )
 };

@@ -17,6 +17,12 @@ module.exports = {
       {
         test: /\.css$/, // Sử dụng style-loader, css-loader cho file .css
         use: ["style-loader", "css-loader"]
+      },
+      {
+        test: /\.(mp4|webm)$/,
+        use: {
+          loader: 'file-loader',
+        }
       }
     ]
   },
